@@ -63,17 +63,17 @@ const TaskListing = () => {
       key: "actions",
       render: (text, record) => (
         <div className="flex gap-2">
-<Button 
-  disabled={deleting} 
-  onClick={() => navigate(`/edit/${record._id}`)}
-  style={{
-    cursor: deleting ? 'not-allowed' : 'pointer',
-    opacity: deleting ? 0.5 : 1,
-  }}
-  aria-disabled={deleting}
->
-  Edit
-</Button>
+ <Button 
+        disabled={deleting === record._id} 
+        onClick={() => navigate(`/edit/${record._id}`)}
+        style={{
+          cursor: deleting === record._id ? 'not-allowed' : 'pointer',
+          opacity: deleting === record._id ? 0.5 : 1,
+        }}
+        aria-disabled={deleting === record._id}
+      >
+        Edit
+      </Button>
           <Popconfirm
             title="Delete the task"
             description="Are you sure to delete this task?"
