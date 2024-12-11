@@ -50,7 +50,6 @@ export default function EditTask() {
           <input
             defaultValue={currentTask?.due_date}
             placeholder="Enter Due Date"
-            type="date"
             className="p-2 rounded-md"
             {...register("due_date", { required: true })}
           />
