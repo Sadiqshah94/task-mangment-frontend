@@ -2,12 +2,16 @@ import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import requests from "../../api/axios";
+import { Button } from "antd";
+import { useState } from "react";
 
 export default function EditTask() {
   const allTasks = useSelector((state) => state?.task?.tasks);
   const { id } = useParams();
   const currentTask = allTasks?.find((item) => item?._id == id);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -15,7 +19,9 @@ export default function EditTask() {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true)
     await requests.put(`/tasks/update/${id}`, data);
+    setLoading(false);
     navigate('/');
     
   };
@@ -50,10 +56,9 @@ export default function EditTask() {
           {errors.due_date && <span>Due date is required</span>}
 
           <div className="flex justify-end my-4">
-            <input
-              type="submit"
-              className="w-32 py-2 bg-white rounded-md cursor-pointer"
-            />
+             <Button loading={loading} type="primary" htmlType="submit">
+        Update
+      </Button>
           </div>
         </div>
       </form>
